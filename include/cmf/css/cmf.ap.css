@@ -1,0 +1,87 @@
+div#adminpanel{
+    position:fixed;
+    left:0px;
+    top:0px;
+    right: 0px;
+    font: normal small "Lucida Grande", Verdana, sans-serif;
+}
+div#adminnavbar{
+    background: #000;    
+    color: #ccc;
+    left: 0;
+    margin: 0 -20px;
+    padding: 0 20px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 30px;
+    -moz-box-shadow: 0 3px 3px #000;
+    -webkit-box-shadow: 0 3px 3px #000;
+    box-shadow: 0 2px 2px #000;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
+}
+div#adminlogo{
+    position:absolute;
+    top: 7px;
+    left: 25px;
+    margin: 0 -10px;
+    color: #FECF5B; 
+}
+div#admininfo{
+    position:absolute;
+    top:8px;
+    right: 70px;
+    white-space: nowrap;
+    color:#FFF;
+}
+div#admininfo a:link, div#admininfo a:visited{
+    margin: 0 -10px;
+    padding: 3px 10px 4px;   
+    text-decoration: none;
+}
+
+div#adminpanel strong{
+    color: #FECF5B;
+}
+
+div#adminlogout{
+    position:absolute;
+    top:8px;
+    right: 20px;
+    color:#FFF;
+}
+div#adminpanel a:link, div#adminpanel a:visited { 
+    font-size: .846em;
+    color: #FFF; 
+    text-decoration: none;
+    font-weight: normal;
+}
+
+div#adminpanel a:hover {
+    margin-left: -2px;
+    margin-right: -2px;
+    padding: 2px;
+    border-bottom: 1px solid #FECF5B;
+    text-decoration: none;
+} 
+ul#adminmenu{
+    position:absolute;
+    top: 3px;
+    left: 83px;
+    width: 65%;
+    list-style-type: none;
+
+}
+ul#adminmenu li{
+    float:left;
+    padding-right: 15px;
+    display: block;
+}
+
+
+
+
+
+
+

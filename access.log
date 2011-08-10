@@ -1,0 +1,6 @@
+127.0.0.1 - - [04/Aug/2011:03:20:08 +0700] "GET / HTTP/1.1" 200 315 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0"
+127.0.0.1 - - [04/Aug/2011:03:20:09 +0700] "GET / HTTP/1.1" 200 314 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0"
+127.0.0.1 - - [04/Aug/2011:03:20:09 +0700] "GET / HTTP/1.1" 200 314 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0"
+127.0.0.1 - - [04/Aug/2011:03:20:14 +0700] "GET / HTTP/1.1" 200 315 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0"
+127.0.0.1 - - [04/Aug/2011:03:20:14 +0700] "GET /favicon.ico HTTP/1.1" 404 500 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0"
+127.0.0.1 - - [04/Aug/2011:03:20:14 +0700] "GET /favicon.ico HTTP/1.1" 404 500 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0"

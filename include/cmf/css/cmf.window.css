@@ -1,0 +1,90 @@
+div.modal * {}
+
+div.modalmessage h2, h3 {
+        color:#444;
+        font-size: 20px;
+}
+
+.modalfade{
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	width: 80%;
+	height: 100%;
+	z-index: 50000;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+	filter:alpha(opacity=60);
+	opacity: 0.60;
+	background-color: #000 !important;
+}
+
+
+
+div.modal{
+	background-color: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+
+	box-shadow: 0px 5px 20px #333;
+	-webkit-box-shadow: 0 5px 20px #333;
+  	-moz-box-shadow: 0 5px 20px #333;
+
+  	z-index: 50001;
+
+	font-family: "Trebuchet MS", "Helvetica Neue", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	color: #000;
+}
+div.modal .modalcontainer{
+	font-weight: bold;
+}
+div.modal .modalclose{
+	position: absolute;
+	right: -11px;
+	top: -11px;
+	width: 30px;
+	height: 30px;
+	background: url(../../engine/System/wysiwyg/i/close.png) no-repeat;
+	cursor: pointer;
+}
+div.modal .modalmessage{
+	padding: 10px;
+	line-height: 20px;
+	color: #444444;
+}
+div.modal .modalbuttons{
+	text-align: right;
+	padding: 5px 0 5px 0;
+	border: solid 1px #eeeeee;
+	
+}
+div.modal button{
+	padding: 3px 10px;
+	margin: 0 10px;
+	background-color: #686868;
+	border: solid 0px #686868;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+div.modal button.modaldefaultbutton{
+	background-color: #686868;
+}
+
+div.modal button:hover{
+	background-color: #B39240;
+}
+
+.modalwarning .modal .modalbuttons{
+	background-color: #BF5E26;
+}
+
+div.modal a{
+    color:#333;
+    text-decoration: underline;
+}
+div.modal a:hover{
+    text-decoration: none;
+}

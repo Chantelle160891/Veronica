@@ -1,0 +1,50 @@
+post()[]{
+    <h1 class="posthead">:date</h1>
+    <p>:content</p>
+
+}
+
+Dashboard()[]{
+    <h3>Записи</h3>
+    
+    <a href="#" onClick="Controller.add('Posts')">Добавить</a> |
+    <a href="#" onClick="Controller.massRemove(this);">Удалить выбранные</a> 
+    <hr />
+    
+    [:include DashboardList]
+    :listbody
+
+}
+
+DashboardList()[]{
+    <table style="margin-bottom:0px; width:100%;">
+        <thead>
+            <th style="width:5%;text-align: center;"></th>
+            <th style="width:10%; text-align: center;">#</th>
+            <th style="width:50%;">Краткое содержание</th>
+            <th style="width:15%;">Дата создания</th>
+            <th >Управление</th>
+        </thead>
+    </table>
+}
+DashboardListItem()[]{
+    <table style="width:100%; margin:0px; ">
+        <tr class="listrow">
+            <td style="width:5%;text-align: center;"><input type="checkbox" class="cmf_mass_marker" /></td>
+            <td style="width:10%; text-align: center;">:id</td>
+            <td style="width:50%;"> :content</td>
+            <td style="width:15%;text-align: center;"> :date</td>
+            <td style="text-align: center;"><a href="#" onClick="Controller.edit(this);">Изменить</a> | <a href="#" onClick="Controller.remove(this);">Удалить</a></td>
+        </tr>
+    </table>
+}
+
+
+Form()[]{
+    <h3>Добавление/Редактирование записи</h3>
+    <label for="content">Текст записи</label><br />
+    <textarea id="content" name="content" style="width:500px">:content</textarea><br />
+    <label for="date">Дата создания</label><br />
+    <input type="date" name="date" value=":date" />
+    
+}

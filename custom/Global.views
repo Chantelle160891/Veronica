@@ -1,0 +1,22 @@
+RemoveForm()[]{
+    Вы действительно хотите удалить этот элемент?
+}
+MassRemoveForm()[]{
+    Вы действительно хотите удалить выбранные элементы?
+}
+
+VeronicaAdminPanel()[]{
+    <div id="adminpanel">    
+        <div id="adminnavbar">&nbsp</div>
+        <div id="adminlogo"><strong>VeronicaCMF</strong></div>
+        <ul id="adminmenu">
+            :MENULIST
+        </ul>
+        <div id="admininfo"><a href="#">Привет, <strong>:USERNAME</strong></a></div>
+        <div id="adminlogout"><a href="#">Выйти</a></div>
+        
+    </div>
+}
+VeronicaMenuListItem()[]{
+    <li><a href="#" onClick=":CLICKHANDLER">:ALIAS</a></li>
+}

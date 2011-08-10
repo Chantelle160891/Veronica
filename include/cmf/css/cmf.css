@@ -1,0 +1,59 @@
+table   { margin-bottom: 1.5em; font-size: 96%; border-collapse: collapse; }
+thead td, thead th  { border-bottom: 2px solid #d4d4d4; font-weight: bold; font-size: 1em; line-height: 1;  }
+td      { border-bottom: 1px solid #eee; }
+th, td   { padding: 4px 10px 4px 0; }
+tfoot   { font-style: italic; }
+caption { background: #ffc; }
+
+tr.listrow:hover{
+    background-color:#FFEC9E;
+}
+
+tfoot td {
+    border-top: 2px solid #ddd;
+    font-size: .9em;
+    padding-top: 7px !important;
+    border-bottom: none !important;
+}
+
+div.cmf_item{
+    float: none;
+    padding-left: 4px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-left: -4px;
+}
+div.cmf_fastcontrolpanel{
+    display: none;
+    position:relative;
+    float:right;
+    right: 0px;
+    top:-4px;
+    width:30px;
+    height: 20px;
+    
+}
+
+div.cmf_fasteditbutton{
+    background: url(../../../template/images/cmf/itemedit.png) no-repeat;
+    background-position: 7px 2px; 
+    background-repeat: no-repeat;
+    width:30px;
+    height:20px;
+    background-color:#FECF5B;
+    border-top-right-radius: 10px;;
+}
+div.cmf_fastremovebutton{
+    background: url(../../../template/images/cmf/itemremove.png) no-repeat;
+    background-position: 7px 2px; 
+    background-repeat: no-repeat;
+    width:30px;
+    height:20px;
+    background-color:#FECF5B;
+    border-bottom-left-radius: 10px;
+}
+div:hover.cmf_fastremovebutton, div:hover.cmf_fasteditbutton{
+    background-color:#f58400;
+
+}
