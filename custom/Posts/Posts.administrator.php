@@ -24,6 +24,14 @@ class PostsAdministrator extends BaseAdministrator {
 
     public static function getDashboard() {
         $items = ModelHandler::get("Posts");
+        foreach ($items as $item) {
+            $length = strlen($item->bean['content']);
+            if( $length > 203 ){
+                $s = substr($item->bean['content'], 0, 200);
+                $s = substr($s, 0, strrpos($s, " "))."...";
+                $item->bean['content'] = $s;
+            }
+        }
         $items = array_reverse($items);
         $a = ViewHandler::wrapGroup("DashboardListItem", $items);
         $view = ViewHandler::getView("Posts", self::$dashboardView);
