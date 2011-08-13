@@ -375,19 +375,19 @@ var Window = {};
 Window.windows = new Array;
 Window.current = null;
 Window.initialPositions = new Array;
-Window.positionRecorded = false;
+Window.herecoms = false;
 Window.reset = function(){
     Window.windows = new Array;
     Window.current = null;
     Window.initialPositions = new Array;
-    Window.positionRecorded = false;
+    Window.herecoms = false;
 }
 
 Window.newWindow = function(h,w){
     
-    if( !Window.positionRecorded ){
+    if( !Window.herecoms ){
         $(document).keydown(Window.close);
-        Window.positionRecorded = true;
+        Window.herecoms = true;
     }
     
     Window.initialPositions.push(window.pageYOffset);

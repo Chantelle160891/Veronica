@@ -9,7 +9,18 @@ class Template{
 	public static function configure( $home ){
 		self::$home = $home;
                 $js = ""; $css = "";
-                $files = API::getFileList( INCLUDEPATH );
+                if( Authorization::isAuthorized() ){
+                    $files = API::getFileList( INCLUDEPATH );
+                    $pos = array_search("./include/cmf/js/lib.js",$files);
+                    unset($files[$pos]);
+                }
+                else{
+                    $files = API::getFileList( INCLUDEPATH,-1 );
+                    $files[] = "./include/cmf/js/lib.js";
+                    $files[] = "./include/cmf/css/cmf.notify.css";
+                    $files[] = "./include/cmf/css/cmf.ui.css";
+                }
+                
                 rsort($files);
                 foreach ($files as $path) {
 

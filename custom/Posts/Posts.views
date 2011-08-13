@@ -45,5 +45,5 @@ Form()[]{
     <textarea id="content" name="content" style="width:500px"><? echo $content;?></textarea><br />
     <label for="date">Дата создания</label><br />
     <input type="date" name="date" value="<? echo $date;?>" />
-    
+    <div data-type="input" data-kind="TextLine" data-name="title" data-label="Абракадабра!" data-style="width:500px;" />
 }

@@ -93,7 +93,6 @@ Tool.makeAuth = function(loginid, passid){
     var login = $("#"+loginid).val();
     var pass = $("#"+passid).val();
     API.ajax("call://Authorization.makeAuth("+JSON.stringify([[login,pass]])+")", function(data){
-            //l(data);
             API.refresh();
         });
     
