@@ -374,22 +374,23 @@ var Window = {};
 
 Window.windows = new Array;
 Window.current = null;
-Window.initialPosition = null;
+Window.initialPositions = new Array;
 Window.positionRecorded = false;
 Window.reset = function(){
-    this.windows = new Array;
-    this.current = null;
-    this.initialPosition = null;
-    this.positionRecorded = false;
+    Window.windows = new Array;
+    Window.current = null;
+    Window.initialPositions = new Array;
+    Window.positionRecorded = false;
 }
 
 Window.newWindow = function(h,w){
     
     if( !Window.positionRecorded ){
-        $(document).keydown(function(){ Window.close(); l(1);});
-        Window.initialPosition = window.pageYOffset;
+        $(document).keydown(Window.close);
         Window.positionRecorded = true;
     }
+    
+    Window.initialPositions.push(window.pageYOffset);
     $.scrollTo(0, 300);
     if( Window.current != null )
         Window.windows.push(Window.current);
@@ -407,6 +408,7 @@ Window.newWindow = function(h,w){
 Window.close = function(){
 
     if(Window.windows.length > 0){
+        $.scrollTo(Window.initialPositions.pop(),300);
         var w = Window.windows.pop();
         Window.current = w;
         var callString = w[0];
@@ -423,7 +425,7 @@ Window.close = function(){
     }else{
         $(document).unbind('keydown',Window.close);
         $.prompt.close();
-        $.scrollTo(this.initialPosition,300);
+        $.scrollTo(Window.initialPositions.pop(),300);
         Window.reset();
     }
 
