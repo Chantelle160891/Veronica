@@ -7,8 +7,10 @@ var API = {};
 API.Init = function(){
    
    //add controls
-   
-   $.each($(document).find(".cmf_item"),function(i,item){Tool.addControls(item)});
+   if( Tool.isAuthorized() ){
+       $.each($(document).find(".cmf_item"),function(i,item){Tool.addControls(item)});
+   }
+        
    
    
 }

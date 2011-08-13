@@ -22,8 +22,16 @@ class PostsAdministrator extends BaseAdministrator {
         return ViewHandler::wrap($args[0], $items[0]);
     }
 
+    public static function showAsGroup($args) {
+        if( $args == NULL || count($args) != 2  )return false;
+        $items = ModelHandler::get("Posts");
+        $items = array_reverse($items);
+        return ViewHandler::wrapGroup($args[0], $items,$args[1]);
+    }
+
     public static function getDashboard() {
         $items = ModelHandler::get("Posts");
+        
         foreach ($items as $item) {
             $length = strlen($item->bean['content']);
             if( $length > 203 ){
@@ -35,7 +43,8 @@ class PostsAdministrator extends BaseAdministrator {
         $items = array_reverse($items);
         $a = ViewHandler::wrapGroup("DashboardListItem", $items);
         $view = ViewHandler::getView("Posts", self::$dashboardView);
-        $dashboard = preg_replace("/:listbody/", $a, $view);
+        $dashboard = str_replace("<? echo \$listbody;?>", $a, $view);
+        $dashboard = str_replace("<? echo \$count;?>", count($items), $dashboard);
         return $dashboard;
     }
     

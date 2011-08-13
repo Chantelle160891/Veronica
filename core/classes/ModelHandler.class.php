@@ -13,7 +13,25 @@ class ModelHandler {
         $table = Config::$DBConf['prefix'].$modelclass::$table;
         return $table;
     }
-    
+
+    private static function sortItems($items) {
+        
+        for( $i = 0; $i< count($items); $i++ ){
+            for( $j = 0; $j< count($items); $j++ ){
+                if( $items[$i]->id < $items[$j]->id ){
+                    $tmp = $items[$i];
+                    $items[$i] = $items[$j];
+                    $items[$j] = $tmp;
+                }
+
+            }
+        }
+            
+        return $items;
+        
+    }
+
+
     /**
      * Возвращает пустой Item модели
      * 
@@ -49,6 +67,8 @@ class ModelHandler {
         else $beans = DB::find ($table);
         $items = array();
         foreach ($beans as $bean) $items[] = new Item( $model, $bean );
+        
+        $items = self::sortItems($items);
         return $items;
     }
     
@@ -65,6 +85,7 @@ class ModelHandler {
         $bns = DB::related($bean, $relatedtable);
         $items = array();
         foreach ($bns as $b) $items[] = new Item($model, $b );
+        self::sortItems($items);
         return $items;
     }
     

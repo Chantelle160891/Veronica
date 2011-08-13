@@ -39,7 +39,8 @@ class Core {
         Storage::put("Template::jsInclude",
             "<script type=\"text/javascript\" src=\"{PATH}\"></script>\n");
 
-        
+        Template::configure( TEMPLATEPATH );
+
         $url = "mysql:host=".Config::$DBConf["host"].";dbname=".Config::$DBConf["name"];
         DB::setup($url, Config::$DBConf["user"], Config::$DBConf["pass"]);
         
@@ -49,7 +50,7 @@ class Core {
         Core::Init();
         
         // login as admin
-        UsersModel::makeAuth(array("admin","123"));
+        //Authorization::makeAuth(array("admin","123"));
         
         if( isset( $_POST["ajax"] ) ) Ajax::Run( $_POST );
         else{
@@ -58,8 +59,6 @@ class Core {
             $urlArray = explode("/",  substr($url[0],1));
             $urlArray = array_filter($urlArray);
             Router::route( $urlArray );
-            
-            //l( PostsModel::save(array(null,$a,true)) );
         }
         
         

@@ -4,7 +4,7 @@ class ViewHandler {
     
     private static $itemTpl = "<div class='cmf_item' data-model='{itemmodel}' data-id='{itemid}' data-style='{itemstyle}' {additional}>{itemhtml}</div>\n";
     
-    private static $groupTpl = "<div class='cmf_group' data-model='{groupmodel}' data-style='{groupstyle}' {additional}>{grouphtml}</div>\n";
+    private static $groupTpl = "<div class='cmf_group' data-model='{groupmodel}' data-style='{groupstyle}' data-limit='{grouplimit}' {additional}>{grouphtml}</div>\n";
     
     private static $conststants = array(
         "TODAY" => 'date("Y-m-d");',
@@ -42,33 +42,43 @@ class ViewHandler {
     }
 
     public static function wrap($as, $item) {
+        Template::reset();
         $stls = self::getStyles( $item->model );
         $html = str_replace("{itemmodel}", $item->model, self::$itemTpl);
         $html = str_replace("{itemid}", $item->id, $html);
         $html = str_replace("{itemstyle}", $as, $html);
         $html = str_replace("{additional}", $stls[$as][1], $html);
-        $content = $stls[$as][2];
+        $source = $stls[$as][2];
         foreach ($item->bean as $key => $value) {
-            $content = str_replace(":".$key, $value, $content);
+            Template::assign($key,$value);
+
         }
         foreach (self::$conststants as $const => $value){
-            $content = str_replace(":".$const, eval($value), $content);
+            Template::assign($const,eval($value));
         }
         
-        $html = str_replace("{itemhtml}", $content, $html);
-        return $html;
+        $html = str_replace("{itemhtml}", Template::render($source,false), $html);
+        return Template::render($html,false);
         
     }
     
-    public static function wrapGroup($as, $items) { 
+    public static function wrapGroup($as, $items, $count = NULL) {
+        
         $stls = self::getStyles( $items[0]->model );
         $html = str_replace("{groupmodel}", $items[0]->model, self::$groupTpl);
         $html = str_replace("{groupstyle}", $as, $html);
+        if( $count != NULL ){
+            $items = array_slice($items, 0, $count);
+            $html = str_replace("{grouplimit}", $count, $html);
+        }else{
+            $html = str_replace("{grouplimit}", "infinity", $html);
+        }
+        
         $html = str_replace("{additional}", $stls[$as][0], $html);
         $ihtml = "";
         foreach ($items as $item) $ihtml .= self::wrap($as, $item);
         $html = str_replace("{grouphtml}", $ihtml, $html);
-        return $html;
+        return Template::render($html,false);
     }
     
 }

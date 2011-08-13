@@ -21,6 +21,20 @@ div#adminnavbar{
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
 }
+
+div.cmf_adminaddbutton{
+    background: url(../../../template/images/cmf/itemadd.png) no-repeat;
+    float:right;
+    margin: 3px -10px 0px -4px;
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+    width:20px;
+    height:20px;
+}
+div.cmf_adminaddbutton:hover{
+    background-color: #3E3B36;
+}
+
 div#adminlogo{
     position:absolute;
     top: 7px;

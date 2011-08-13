@@ -10,13 +10,17 @@ VeronicaAdminPanel()[]{
         <div id="adminnavbar">&nbsp</div>
         <div id="adminlogo"><strong>VeronicaCMF</strong></div>
         <ul id="adminmenu">
-            :MENULIST
+            <? echo $MENULIST;?>
         </ul>
-        <div id="admininfo"><a href="#">Привет, <strong>:USERNAME</strong></a></div>
-        <div id="adminlogout"><a href="#">Выйти</a></div>
+        <? echo $USERPANEL;?>
         
     </div>
 }
 VeronicaMenuListItem()[]{
-    <li><a href="#" onClick=":CLICKHANDLER">:ALIAS</a></li>
+    <li>
+        <a href="#" onClick="<? echo $CLICKHANDLER;?>">
+            <? echo $ALIAS;?>
+        </a>
+        &nbsp<div class="cmf_adminaddbutton" src="../../../template/images/cmf/itemadd.png" onClick="<? echo $ADDCLICKHANDLER;?>" />
+    </li>
 }

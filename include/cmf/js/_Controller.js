@@ -3,8 +3,10 @@ Controller.openDashboard = function( model ){
     Window.newWindow( model+"Administrator.getDashboard()",{buttons:{"Закрыть":true}} );   
 }
 
+
 Controller.openForm = function( model, id, callback ){
     var o = [[id]];
+    
     Window.newWindow( model+"Administrator.getForm("+JSON.stringify(o)+")",{
         buttons:{"Сохранить":true, "Отмена":false},
         submit:function(ans,c,form){return callback(ans,form)}
@@ -42,16 +44,17 @@ Controller.edit = function( link ){
     }); // open form   
 }
 Controller.add = function( model ){
+    
     this.openForm(model, null, function( ans, form ){
         if( !ans ) return false;
         if( !Tool.validateForm(model, form) ) return "wait";
         Item.create(model, form);
-    }); 
+    });
 }
 
-Controller.massRemove = function( link ){
+Controller.massRemove = function( ){
     
-    var items = $(link).parent().find(".cmf_mass_marker[type=\"checkbox\"]").filter(":checked").parents(".cmf_item");
+    var items = Tool.selected;
     var o = [null,"MassRemoveForm"];
     Window.newWindow("ViewHandler.getView("+JSON.stringify(o)+")", {
         buttons:{"Да":true, "Нет":false},
@@ -64,4 +67,5 @@ Controller.massRemove = function( link ){
             }
         }
     });
+    
 }

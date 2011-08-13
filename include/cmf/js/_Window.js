@@ -16,7 +16,7 @@
 
 		options = $.extend({},$.prompt.defaults,options);
 		$.prompt.currentPrefix = options.prefix;
- 
+
 		var ie6		= ($.browser.msie && $.browser.version < 7);
 		var $body	= $(document.body);
 		var $window	= $(window);
@@ -42,7 +42,7 @@
 		var $modalb	= $(msgbox).appendTo($body);
 		var $modal	= $modalb.children('#'+ options.prefix);
 		var $modalf	= $modalb.children('#'+ options.prefix +'fade');
-        
+
 		//if a string was passed, convert to a single state
 		if(message.constructor == String){
 			message = {
@@ -104,7 +104,7 @@
 				});
 
 				var close = stateobj.submit(clicked,msg,forminputs);
-                                
+
                                 if( close == "wait" ){
                                     API.notify("error", "Ошибка сохранения", "Проверьте заполнение формы")
                                     return false;
@@ -117,8 +117,8 @@
 				}
 			});
 			$state.find('.'+ options.prefix +'buttons button:eq('+ stateobj.focus +')').addClass(options.prefix +'defaultbutton');
-            
-            
+
+
 		});
 
 		var ie6scroll = function(){
@@ -193,8 +193,8 @@
 				top: options.top,
 				left: options.left,
                                 width:"80%"
-                                
-				
+
+
 			});
 		};
 
@@ -214,7 +214,7 @@
 		};
 
 		var removePrompt = function(callCallback, clicked, msg, formvals){
-                        
+
 			$modal.remove();
 			//ie6, remove the scroll event
 			if(ie6) {
@@ -227,13 +227,13 @@
 				if(callCallback) {
 					options.callback(clicked,msg,formvals);
 				}
-				$modalb.unbind('keypress',keyPressEventHandler);
+				//$modalb.unbind('keypress',keyPressEventHandler);
 				$modalb.remove();
 				if(ie6 && !options.useiframe) {
 					$('select').css('visibility','visible');
 				}
-			});     
-                        
+			});
+
                         Window.close();
 		};
 
@@ -246,7 +246,7 @@
 		}
 		$modalf.click(fadeClicked);
 		$window.resize(positionPrompt);
-		$modalb.bind("keydown keypress",keyPressEventHandler);
+		//$modalb.bind("keydown keypress",keyPressEventHandler);
 		$modal.find('.'+ options.prefix +'close').click(removePrompt);
 
 		//Show it
@@ -265,13 +265,13 @@
 		classes: '',
 		buttons: {},
 	 	loaded: function(){
-                    
+
 	 	},
 	  	submit: function(){
 	  		return true;
 		},
 	 	callback: function(){
-                    
+
 	 	},
 		opacity: 0.6,
 	 	zIndex: 999,
@@ -373,7 +373,6 @@
 var Window = {};
 
 Window.windows = new Array;
-
 Window.current = null;
 Window.initialPosition = null;
 Window.positionRecorded = false;
@@ -385,13 +384,15 @@ Window.reset = function(){
 }
 
 Window.newWindow = function(h,w){
-    if( !this.positionRecorded ){
-        this.initialPosition = window.pageYOffset;
-        this.positionRecorded = true;
+    
+    if( !Window.positionRecorded ){
+        $(document).keydown(function(){ Window.close(); l(1);});
+        Window.initialPosition = window.pageYOffset;
+        Window.positionRecorded = true;
     }
     $.scrollTo(0, 300);
-    if( this.current != null )
-        this.windows.push(this.current);
+    if( Window.current != null )
+        Window.windows.push(Window.current);
     API.ajax("call://"+h, function(data,h){
         $.prompt.close();
         Window.current = [h,w];
@@ -404,10 +405,10 @@ Window.newWindow = function(h,w){
 }
 
 Window.close = function(){
-    
-    if(this.windows.length > 0){
-        var w = this.windows.pop();
-        this.current = w;
+
+    if(Window.windows.length > 0){
+        var w = Window.windows.pop();
+        Window.current = w;
         var callString = w[0];
         var args = w[1];
         API.ajax(callString, function(data,h){
@@ -420,13 +421,15 @@ Window.close = function(){
             $.prompt(data[h],args);
         });
     }else{
+        $(document).unbind('keydown',Window.close);
+        $.prompt.close();
         $.scrollTo(this.initialPosition,300);
-        this.reset();
+        Window.reset();
     }
-    
+
 }
 
-    
-    
-    
+
+
+
 

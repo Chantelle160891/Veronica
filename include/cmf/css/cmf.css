@@ -28,7 +28,7 @@ div.cmf_fastcontrolpanel{
     display: none;
     position:relative;
     float:right;
-    right: 0px;
+    right: -30px;
     top:-4px;
     width:30px;
     height: 20px;
@@ -37,21 +37,21 @@ div.cmf_fastcontrolpanel{
 
 div.cmf_fasteditbutton{
     background: url(../../../template/images/cmf/itemedit.png) no-repeat;
-    background-position: 7px 2px; 
+    background-position: 4px 2px;
     background-repeat: no-repeat;
-    width:30px;
+    width:25px;
     height:20px;
-    background-color:#FECF5B;
-    border-top-right-radius: 10px;;
+    background-color:#FFEC9E;
+    border-top-right-radius: 4px;;
 }
 div.cmf_fastremovebutton{
     background: url(../../../template/images/cmf/itemremove.png) no-repeat;
-    background-position: 7px 2px; 
+    background-position: 4px 2px;
     background-repeat: no-repeat;
-    width:30px;
+    width:25px;
     height:20px;
-    background-color:#FECF5B;
-    border-bottom-left-radius: 10px;
+    background-color:#FFEC9E;
+    border-bottom-right-radius: 4px;
 }
 div:hover.cmf_fastremovebutton, div:hover.cmf_fasteditbutton{
     background-color:#f58400;

@@ -11,11 +11,14 @@ class PagesController extends BaseController {
     public static function index() {
         
         $post  = ModelHandler::get("Posts");
+
         $post = array_reverse($post);
-        $content = ViewHandler::wrapGroup("post", $post);            
-        $tpl = new TPL();
-        $tpl->assign("content",$content);
-        $tpl->draw("main");
+        
+        $content = ViewHandler::wrapGroup("post", $post, 10);
+        Template::reset();
+        Template::assign("content",$content);
+        Template::assign("allpostslink","<p><a href=\"?/posts/lst\">Показать все записи</a></p>");
+        echo Template::render("main.html");
     }
     
     

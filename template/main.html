@@ -16,34 +16,44 @@ Released   : 20101129
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Мой бложик</title>
-{$JSINCLUDE}
-{$CSSINCLUDE}
+<?=$JSINCLUDE?>
+<?=$CSSINCLUDE?>
 </head>
 <body>
+<? if( Authorization::isAuthorized() ){echo AdminPanel::getPanel();}  ?>
 <div id="wrapper">
 	<div id="page">
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				<div id="content">
-					{$content}
-                                        
+					<?=$content?>
+                                        <?=$allpostslink?>
+                                        <p><h3 style="color:#111111;margin-left: 200px;">
+                                                <a href="#" onClick="$(document).scrollTo(0,300)">Вверх!</a>
+                                        </h3></p>
 				</div>
 				<!-- end #content -->
+
 				<div id="sidebar">
 					<div id="logo">
-						<h1><a href="#">Veronica Blog</a></h1>
-						<p>Design by <a href="#">Neronmoon</a></p>
+						<h1><a href="http://veronica">Veronica Blog</a></h1>
+						<p>Design by <a href="http://veronica">Neronmoon</a></p>
 					</div>
                                     
 					<div id="menu">
 						
                                                 <p >Знаешь, а ведь вполне может быть, что ты – обыкновенный овощ и тебя давным-давно сожрало какое-то травоядное чудовище, желудочный сок которого способен вызывать правдоподобные галлюцинации у перевариваемой пищи, так что ты всего лишь наслаждаешься сокрушительной иллюзией своей замечательной, интересной жизни напоследок... Тебе нравится твоя галлюцинация? </p>
-                                                
-					</div>
+                                                <? if( !Authorization::isAuthorized() ): ?>
+                                                <input type="text" id="login" /><br />
+                                                <input type="password" id="password" /><br />
+                                                <button onClick="Tool.makeAuth('login','password');">Log me in</button>
+                                                <? endif; ?>
+                                        </div>
 					
 				</div>
 				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>
+                                
 			</div>
 		</div>
 	</div>

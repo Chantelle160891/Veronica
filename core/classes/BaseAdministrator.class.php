@@ -16,6 +16,8 @@ abstract class BaseAdministrator {
     public static function getValidationRules(){}
     
     public static function show() {}
+
+    public static function showAsGroup() {}
     
     
 }

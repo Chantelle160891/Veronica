@@ -1,40 +1,58 @@
+CurrentUser()[ data-controls=disable ]{
+    <div id="admininfo"><a href="#" onClick="Controller.edit(this);" >Привет, <strong><? echo $name;?></strong></a></div>
+    <div id="adminlogout"><a href="#" onClick="Tool.logout();">Выйти</a></div>
+
+}
+
 
 Dashboard()[]{
-    <h2>Пользователи</h2>
-    
-    <a href="#" onClick="">Добавить</a> | <a href="#" onClick="">Удалить выбранные</a> 
+    <h3>Пользователи&nbsp(<? echo $count;?>)</h3>
+    <a href="#" onClick="Controller.add('Users')">Добавить</a> |
+    <a href="#" onClick="Controller.massRemove();">Удалить выбранные</a>
     <hr />
-    
+
     [:include DashboardList]
-    :listbody
-<div style="height:20px;"></div>
+    <? echo $listbody;?>
+
 }
 
 DashboardList()[]{
-    <table style="margin-bottom:0px;">
+    <table style="margin-bottom:0px; width:100%;">
         <thead>
-            <th style="width:40px;text-align: center;"></th>
-            <th style="width:50px; text-align: center;">#</th>
-            <th style="width:100px;">Имя</th>
-            <th style="width:100px;">Категория</th>
-            <th style="width:230px;text-align: center;">Управление</th>
+            <th style="width:40px;"></th>
+            <th style="width:50px;">#</th>
+            <th style="width:170px;">Имя</th>
+            <th style="width:200px;">E-mail</th>
+            <th style="width:200px;">Права доступа</th>
+            <th >Управление</th>
         </thead>
     </table>
 }
 DashboardListItem()[]{
+
     <table style="width:100%; margin:0px; ">
-        <tr class="listrow">
-            <td style="width:30px;text-align: center;"><input type="checkbox" class="cmf_do_marker" /></td>
-            <td style="width:50px; text-align: center;">:id</td>
-            <td style="width:100px;"> :name</td>
-            <td style="width:100px;"> :category</td>
-            <td><a href="#" onClick="">Изменить</a></td>
-            <td><a href="#" onClick="">Удалить</a></td>
+        <tr class="listrow" onClick="Tool.toggleSelect(this);"  >
+            <td style="width:60px;"><input type="checkbox" class="cmf_mass_marker" /></td>
+            <td style="width:70px;"><? echo $id;?></td>
+            <td style="width:165px;"> <? echo $name;?></td>
+            <td style="width:225px;"> <? echo $email;?></td>
+            <td style="width:150px;"> <? echo $category;?></td>
+            <td style="text-align:center;" ><a href="#" onClick="Controller.edit(this);">Изменить</a>
+            <? if( $_COOKIE['user_id']!=$id ) echo '| <a href="#" onClick="Controller.remove(this);">Удалить</a>';?> </td>
         </tr>
     </table>
 }
 
 
 Form()[]{
-    this is form
+    <h3>Добавление/Редактирование пользователя</h3>
+    <label for="name">Имя пользователя</label><br />
+    <input type="text" name="name" value="<? echo $name;?>" /><br />
+    <label for="password">Пароль</label><br />
+    <input type="password" name="password" value="fakepassword" /><br />
+    <label for="email">Электронная почта</label><br />
+    <input type="text" name="email" value="<? echo $email;?>" /><br />
+    <label for="category">Права доступа</label><br />
+    <input type="text" name="category" value="<? echo $category;?>" /><br />
+
 }

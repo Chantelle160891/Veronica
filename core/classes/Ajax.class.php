@@ -23,9 +23,12 @@ class Ajax {
             $module = $query[1];
             $method = $query[2];
             $args = $query[3];
+
             $response[$name] = call_user_func_array($module.'::'.$method, $args);
         }else $response[$name] = false;
-        echo json_encode($response);
+
+        //запуск остаточного кода
+        echo Template::render(json_encode($response),false);
     }
 
 }
