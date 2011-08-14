@@ -14,6 +14,7 @@ class Core {
         define("CLASSPATH",COREPATH."classes");
         define("TEMPLATEPATH",".".DS."template".DS);
         define("CUSTOMPATH",".".DS."custom");
+        define("PLUGINSPATH",COREPATH."plugins");
         define("INCLUDEPATH",".".DS."include");
         define("FILESPATH",".".DS."files");
         define("TEMPPATH",".".DS."tmp");
@@ -51,7 +52,9 @@ class Core {
         
         // login as admin
         //Authorization::makeAuth(array("admin","123"));
-        
+
+        //l(API::parseStylesFile(CUSTOMPATH.DS."Users".DS."Users.views"));
+
         if( isset( $_POST["ajax"] ) ) Ajax::Run( $_POST );
         else{
             $url = array_keys($_GET);

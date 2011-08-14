@@ -1,13 +1,14 @@
-post()[]{
+new Style:post()[]{
     <h1 class="posthead"> <? echo $date;?> </h1>
     <p><? echo $content;?> </p>
 
 }
 
-Dashboard()[]{
+new Style:Dashboard()[]{
     <h3>Записи&nbsp(<? echo $count;?>)</h3>
-    <a href="#" onClick="Controller.add('Posts')">Добавить</a> |
-    <a href="#" onClick="Controller.massRemove();">Удалить выбранные</a> 
+    <div id="cmf_dashboardactions">
+        <a href="#" onClick="Controller.add('Posts')">Добавить</a>
+    </div>
     <hr />
     
     [:include DashboardList]
@@ -15,35 +16,30 @@ Dashboard()[]{
 
 }
 
-DashboardList()[]{
+new Style:DashboardList()[]{
     <table style="margin-bottom:0px; width:100%;">
         <thead>
-            <th style="width:5%;text-align: center;"></th>
-            <th style="width:10%; text-align: center;">#</th>
             <th style="width:50%;">Краткое содержание</th>
             <th style="width:15%;">Дата создания</th>
-            <th >Управление</th>
         </thead>
     </table>
 }
-DashboardListItem()[]{
+new Style:DashboardListItem()[asdsd]{
     <table style="width:100%; margin:0px; ">
         <tr class="listrow" onClick="Tool.toggleSelect(this);" >
-            <td style="width:5%;text-align: center;"><input type="checkbox" class="cmf_mass_marker" /></td>
-            <td style="width:10%; text-align: center;"><? echo $id;?></td>
-            <td style="width:50%;"><? echo $content;?></td>
+            <td style="width:50%; padding-left:10px;"><? echo $content;?></td>
             <td style="width:15%;text-align: center;"> <? echo $date;?></td>
-            <td style="text-align: center;"><a href="#" onClick="Controller.edit(this);">Изменить</a> | <a href="#" onClick="Controller.remove(this);">Удалить</a></td>
         </tr>
     </table>
 }
 
 
-Form()[]{
+new Style:Form()[]{
     <h3>Добавление/Редактирование записи</h3>
-    <label for="content">Текст записи</label><br />
-    <textarea id="content" name="content" style="width:500px"><? echo $content;?></textarea><br />
-    <label for="date">Дата создания</label><br />
-    <input type="date" name="date" value="<? echo $date;?>" />
-    <div data-type="input" data-kind="TextLine" data-name="title" data-label="Абракадабра!" data-style="width:500px;" />
+    <div class="cmf_datainput" data-plugin="TextPlugin" data-name="content"
+             data-label="Текст записи"  data-style="width:500px;height:300px;" data-value="<? echo $content;?>" />
+
+    <div class="cmf_datainput" data-plugin="DatePlugin" data-name="date"
+            data-label="Дата создания" data-value="<? echo $date;?>" data-style="" />
+    
 }

@@ -29,7 +29,7 @@
 		var msgbox = '<div class="'+ options.prefix +'box'+ options.classes +'"  id="'+ options.prefix +'box">';
 		if(options.useiframe && (($('object, applet').length > 0) || ie6)) {
 			msgbox += '<iframe src="javascript:false;" style="display:block;position:absolute;z-index:-1;" class="'+ options.prefix +'fade" id="'+ options.prefix +'fade"></iframe>';
-		} else {
+		}else {
 			if(ie6) {
 				$('select').css('visibility','hidden');
 			}
@@ -40,8 +40,8 @@
 		msgbox += '</div></div></div>';
 
 		var $modalb	= $(msgbox).appendTo($body);
-		var $modal	= $modalb.children('#'+ options.prefix);
-		var $modalf	= $modalb.children('#'+ options.prefix +'fade');
+		var $modal	= $modalb.find('#'+ options.prefix);
+		var $modalf	= $modalb.find('#'+ options.prefix +'fade');
 
 		//if a string was passed, convert to a single state
 		if(message.constructor == String){
@@ -72,15 +72,16 @@
 		});
 
 		//insert the states...
-		$modal.find('#'+ options.prefix +'states').html(states).children('.'+ options.prefix +'_state:first').css('display','block');
+		$modal.find('#'+ options.prefix +'states').html(states).find('.'+ options.prefix +'_state:first').css('display','block');
 		$modal.find('.'+ options.prefix +'buttons:empty').css('display','none');
+
 
 		//Events
 		$.each(message,function(statename,stateobj){
 			var $state = $modal.find('#'+ options.prefix +'_state_'+ statename);
-
-			$state.children('.'+ options.prefix +'buttons').children('button').click(function(){
-				var msg = $state.children('.'+ options.prefix +'message');
+			$state.find('.'+ options.prefix +'buttons').find('button').click(function(){
+                                
+				var msg = $state.find('.'+ options.prefix +'message');
 				var clicked = stateobj.buttons[$(this).text()];
 				if(clicked == undefined){
 					for(var i in stateobj.buttons)
@@ -103,7 +104,17 @@
 					}
 				});
 
-				var close = stateobj.submit(clicked,msg,forminputs);
+                                var dataInputsValues = {};
+
+                                var inputs = $($modal).find('.cmf_datainput');
+                                $.each(inputs, function(i,input){
+                                    var name = $(input).data('name');
+                                    var value = Plugins.getValue(input);
+                                    dataInputsValues[name] = value;
+                                });
+
+
+				var close = stateobj.submit(clicked,msg,dataInputsValues);
 
                                 if( close == "wait" ){
                                     API.notify("error", "Ошибка сохранения", "Проверьте заполнение формы")
@@ -113,7 +124,7 @@
 
 				if(close != "wait" ) {
                                         msg = $(document).find('.'+ options.prefix +'message');
-					removePrompt(true,clicked,msg,forminputs);
+					removePrompt(true,clicked,msg,dataInputsValues);
 				}
 			});
 			$state.find('.'+ options.prefix +'buttons button:eq('+ stateobj.focus +')').addClass(options.prefix +'defaultbutton');
@@ -141,7 +152,6 @@
 				removePrompt();
 			}
 		};
-
 		var keyPressEventHandler = function(e){
 			var key = (window.event) ? event.keyCode : e.keyCode; // MSIE or Firefox?
 
@@ -198,7 +208,16 @@
 			});
 		};
 
+                var initFormInputs = function(){
+
+                    var inputs = $($modal).find('.cmf_datainput');
+                    $.each(inputs, function(i,input){
+                        Plugins.initPlugin(input);
+                    });
+                }
+
 		var stylePrompt = function(){
+                        initFormInputs();
 			$modalf.css({
 				zIndex: options.zIndex,
 				display: "none",
@@ -211,6 +230,7 @@
 			$modalb.css({
 				zIndex: options.zIndex
 			});
+                        
 		};
 
 		var removePrompt = function(callCallback, clicked, msg, formvals){
@@ -227,18 +247,19 @@
 				if(callCallback) {
 					options.callback(clicked,msg,formvals);
 				}
-				//$modalb.unbind('keypress',keyPressEventHandler);
+                                $modalb.unbind('keypress',keyPressEventHandler);
 				$modalb.remove();
 				if(ie6 && !options.useiframe) {
 					$('select').css('visibility','visible');
 				}
 			});
 
-                        Window.close();
+                        Window.close({keyCode : 27});
 		};
 
 		positionPrompt();
 		stylePrompt();
+
 
 		//ie6, add a scroll event to fix position:fixed
 		if(ie6) {
@@ -246,7 +267,7 @@
 		}
 		$modalf.click(fadeClicked);
 		$window.resize(positionPrompt);
-		//$modalb.bind("keydown keypress",keyPressEventHandler);
+		$modalb.bind("keydown keypress",keyPressEventHandler);
 		$modal.find('.'+ options.prefix +'close').click(removePrompt);
 
 		//Show it
@@ -279,7 +300,7 @@
 	   	promptspeed: 'fast',
    		show: 'fadeIn',
 	   	focus: 0,
-	   	useiframe: true,
+	   	useiframe: false,
 	 	top: "5%",
                 left: "10%",
 	  	persistent: false,
@@ -384,12 +405,12 @@ Window.reset = function(){
 }
 
 Window.newWindow = function(h,w){
-    
+    Tool.selected = new Array;
     if( !Window.herecoms ){
         $(document).keydown(Window.close);
         Window.herecoms = true;
     }
-    
+
     Window.initialPositions.push(window.pageYOffset);
     $.scrollTo(0, 300);
     if( Window.current != null )
@@ -405,8 +426,8 @@ Window.newWindow = function(h,w){
     });
 }
 
-Window.close = function(){
-
+Window.close = function(e){
+    if(e.keyCode!=27) return;
     if(Window.windows.length > 0){
         $.scrollTo(Window.initialPositions.pop(),300);
         var w = Window.windows.pop();

@@ -44,6 +44,8 @@ API.ajax = function(arg1,callback){
        }
      });
 }
+
+
 API.parseJSON = function(data){
     return jQuery.parseJSON(data);
 }

@@ -45,31 +45,30 @@ class Api {
             $content = file_get_contents($url);
             $content = str_replace("\n", "", $content);
             $matches = array();
-            preg_match_all("/[a-zA-Z0-9]+\([^\{\}\[\]]*\)\[[^\{\}\[\]]*\]\{.*?\}/", $content,$matches);
-            $sources = $matches[0];
+            preg_match_all("/new Style:[a-zA-Z0-9]+\(.+\)\[.+\]\{.+\}/", $content,$matches);
+            $sources = explode('new Style:', $matches[0][0]);
+
             $styles = array();
             $inc = array();
             foreach ($sources as $source) {
-                $pos = strpos($source, "{");
-                $key = substr($source, 0, $pos);
-                $forPlugin = array();
-                $forEachEntry = array();                
-                preg_match_all("/\([^\{\}\[\]]*\)/", $key, $forPlugin);
-                preg_match_all("/\[[^\{\}\[\]]*\]/", $key, $forEachEntry);
-                $pluginString = substr($forPlugin[0][0],1,-1);
-                $itemString = substr($forEachEntry[0][0],1,-1);
-                $value = substr($source, $pos+1,-1);
-                $pos = strpos($key, "(");
-                $key = substr($source, 0, $pos);
-                $v = array($pluginString,$itemString,$value);
+                $posname = strpos($source, '(');
+                $name = substr($source, 0, $posname);
+                $source = substr($source, $posname);
+                $posgroup = strpos($source, ')[');
+                $groupstring = substr($source, 1, $posgroup-1);
+                $source = substr($source, $posgroup+1);
+                $positem = strpos($source, ']{');
+                $itemstring = substr($source, 1, $positem-1);
+                $source = substr($source, $positem+2,-1);
+                $v = array($groupstring,$itemstring,$source);
                 $b = array();
                 preg_match_all("/\[:include [a-zA-Z0-9]+\]/", $v[2], $b);
                 foreach ($b as $array) {
                     foreach ($array as $value) {
-                        $inc[$key][] = substr($value,10,-1);
+                        $inc[$name][] = substr($value,10,-1);
                     }
                 }
-                $styles[$key] = $v;
+                $styles[$name] = $v;
             }
             foreach ($inc as $to => $array) {
                 foreach ($array as $from) {

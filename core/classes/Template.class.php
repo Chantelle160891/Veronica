@@ -11,6 +11,8 @@ class Template{
                 $js = ""; $css = "";
                 if( Authorization::isAuthorized() ){
                     $files = API::getFileList( INCLUDEPATH );
+                    
+                    $files = array_merge(API::getFileList( PLUGINSPATH ), $files);
                     $pos = array_search("./include/cmf/js/lib.js",$files);
                     unset($files[$pos]);
                 }
@@ -52,11 +54,15 @@ class Template{
 		}else{
 			$php = array();
                         preg_match_all("/(<\?(php)?(.*?)\?>)/", $source, $php);
+                        
                         foreach ($php[0] as $value) {
+                            
                             ob_start();
                             eval(substr($value, 2, -2));
                             $s = ob_get_clean();
+                            
                             $source = str_replace($value, $s, $source);
+                            //l($source);
                         }
                         $return = $source;
 		}

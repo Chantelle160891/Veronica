@@ -44,11 +44,6 @@ class ViewHandler {
     public static function wrap($as, $item) {
         Template::reset();
         $stls = self::getStyles( $item->model );
-        $html = str_replace("{itemmodel}", $item->model, self::$itemTpl);
-        $html = str_replace("{itemid}", $item->id, $html);
-        $html = str_replace("{itemstyle}", $as, $html);
-        $html = str_replace("{additional}", $stls[$as][1], $html);
-        $source = $stls[$as][2];
         foreach ($item->bean as $key => $value) {
             Template::assign($key,$value);
 
@@ -56,6 +51,12 @@ class ViewHandler {
         foreach (self::$conststants as $const => $value){
             Template::assign($const,eval($value));
         }
+        $html = str_replace("{itemmodel}", $item->model, self::$itemTpl);
+        $html = str_replace("{itemid}", $item->id, $html);
+        $html = str_replace("{itemstyle}", $as, $html);
+        $html = str_replace("{additional}", Template::render( $stls[$as][1], false), $html);
+        $source = $stls[$as][2];
+        
         
         $html = str_replace("{itemhtml}", Template::render($source,false), $html);
         return Template::render($html,false);
@@ -74,7 +75,7 @@ class ViewHandler {
             $html = str_replace("{grouplimit}", "infinity", $html);
         }
         
-        $html = str_replace("{additional}", $stls[$as][0], $html);
+        $html = str_replace("{additional}", Template::render( $stls[$as][0], false), $html);
         $ihtml = "";
         foreach ($items as $item) $ihtml .= self::wrap($as, $item);
         $html = str_replace("{grouphtml}", $ihtml, $html);

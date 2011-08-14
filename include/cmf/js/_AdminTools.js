@@ -124,7 +124,8 @@ Tool.toggleSelect = function( div ){
         },function(){
             if(!Tool.isSelected(this)) $(this).css("background", "none");
         });
-        $(item).find('.cmf_mass_marker').attr('checked', '');
+        var selectMarker = $(item).find('.cmf_mass_marker')[0];
+        $(selectMarker).removeAttr('checked');
         $(div).css("background-color","#FFFFFF");
 
     }else{
@@ -139,7 +140,57 @@ Tool.toggleSelect = function( div ){
         $(item).find('.cmf_mass_marker').attr('checked', 'checked');
         Tool.selected.push(item);
     }
-    
-    
-    
+    Tool.updateDashboardActions();
+}
+
+Tool.updateDashboardActions = function(){
+    var _case = Tool.selected.length;
+    var actionsbar = $('#cmf_dashboardactions');
+
+    var group = $(actionsbar).parents('.modalmessage').find('.cmf_group');
+    var model = $(group).data('model');
+
+    if( _case > 1){
+        var state1 = '<a href="#" onclick="Controller.add(\''+model+'\')">Добавить</a>';
+
+        var canremove = true;
+        for (i = 0; i < Tool.selected.length; i++) {
+            if(  $(Tool.selected[i]).data('deletable') == false ){
+                canremove = false;
+                break;
+            }
+        }
+        
+        if( canremove ) state1 += '| <a href="#" onclick="Controller.massRemove();">Удалить выбранные</a>';
+
+        $(actionsbar).html(state1);
+
+
+    }else if( _case == 1 ){
+
+        var selected = $(Tool.selected[0]).find('*')[0];
+
+        var state2 = $('<div>');
+        var sep1 = $('<span> | </span>');
+        var sep2 = $('<span> | </span>');
+        var addb = $('<a href="#">Добавить</a>').click(function(){Controller.add(model)});
+        var editb = $('<a href="#">Изменить</a>').click(function(){Controller.edit(selected)});
+        var removeb = $('<a href="#">Удалить</a>').click(function(){Controller.remove(selected)});
+        $(state2).append(addb);
+        if(  $(Tool.selected[0]).data('editable') != false ){
+            $(state2).append(sep1);
+            $(state2).append(editb);
+        }
+        if(  $(Tool.selected[0]).data('deletable') != false ){
+            $(state2).append(sep2);
+            $(state2).append(removeb);
+        }        
+        $(actionsbar).empty();
+        $(actionsbar).append(state2);
+    }else{
+        var state3 = '<a href="#" onclick="Controller.add(\''+model+'\')">Добавить</a>';
+        $(actionsbar).html(state3);
+    }
+
+
 }

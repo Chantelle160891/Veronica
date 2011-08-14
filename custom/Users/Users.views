@@ -1,14 +1,15 @@
-CurrentUser()[ data-controls=disable ]{
+new Style:CurrentUser()[ data-controls=disable ]{
     <div id="admininfo"><a href="#" onClick="Controller.edit(this);" >Привет, <strong><? echo $name;?></strong></a></div>
     <div id="adminlogout"><a href="#" onClick="Tool.logout();">Выйти</a></div>
 
 }
 
 
-Dashboard()[]{
+new Style:Dashboard()[]{
     <h3>Пользователи&nbsp(<? echo $count;?>)</h3>
-    <a href="#" onClick="Controller.add('Users')">Добавить</a> |
-    <a href="#" onClick="Controller.massRemove();">Удалить выбранные</a>
+    <div id="cmf_dashboardactions">
+        <a href="#" onClick="Controller.add('Users')">Добавить</a>
+    </div>
     <hr />
 
     [:include DashboardList]
@@ -16,35 +17,27 @@ Dashboard()[]{
 
 }
 
-DashboardList()[]{
+new Style:DashboardList()[]{
     <table style="margin-bottom:0px; width:100%;">
         <thead>
-            <th style="width:40px;"></th>
-            <th style="width:50px;">#</th>
-            <th style="width:170px;">Имя</th>
-            <th style="width:200px;">E-mail</th>
+            <th style="width:150;">Имя</th>
+            <th style="width:170;">E-mail</th>
             <th style="width:200px;">Права доступа</th>
-            <th >Управление</th>
         </thead>
     </table>
 }
-DashboardListItem()[]{
+new Style:DashboardListItem(  )[ <? if($_COOKIE['user_id']==$id) echo 'data-deletable=false'; ?>  ]{
 
     <table style="width:100%; margin:0px; ">
         <tr class="listrow" onClick="Tool.toggleSelect(this);"  >
-            <td style="width:60px;"><input type="checkbox" class="cmf_mass_marker" /></td>
-            <td style="width:70px;"><? echo $id;?></td>
-            <td style="width:165px;"> <? echo $name;?></td>
-            <td style="width:225px;"> <? echo $email;?></td>
-            <td style="width:150px;"> <? echo $category;?></td>
-            <td style="text-align:center;" ><a href="#" onClick="Controller.edit(this);">Изменить</a>
-            <? if( $_COOKIE['user_id']!=$id ) echo '| <a href="#" onClick="Controller.remove(this);">Удалить</a>';?> </td>
+            <td style="width:270px; text-align:center;"> <? echo $name;?></td>
+            <td style="width:400px; text-align:center;"> <? echo $email;?></td>
+            <td style="width:260px; text-align:center;"> <? echo $category;?></td>
         </tr>
     </table>
 }
 
-
-Form()[]{
+new Style:Form()[]{
     <h3>Добавление/Редактирование пользователя</h3>
     <label for="name">Имя пользователя</label><br />
     <input type="text" name="name" value="<? echo $name;?>" /><br />

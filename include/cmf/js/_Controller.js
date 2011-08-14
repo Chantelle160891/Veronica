@@ -16,6 +16,7 @@ Controller.openForm = function( model, id, callback ){
 
 
 Controller.getItemDiv = function( link ){
+    
     var itemsdiv = $(link).parents(".cmf_item");
     if( itemsdiv.length != 1 ){
         l("More than one item in parents");
