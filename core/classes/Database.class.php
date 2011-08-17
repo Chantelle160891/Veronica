@@ -3612,7 +3612,7 @@ class RedBean_OODB extends RedBean_Observable implements RedBean_ObjectDatabase 
 		}
 		foreach($row as $p=>$v) {
 			
-			$bean->$p = $v;
+			$bean->$p = htmlspecialchars_decode($v);
 		}
 		$this->signal( "open", $bean );
 		$bean->setMeta("tainted",false);

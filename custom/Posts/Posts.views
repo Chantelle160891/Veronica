@@ -1,16 +1,14 @@
 new Style:post()[]{
     <h1 class="posthead"> <? echo $date;?> </h1>
-    <p><? echo $content;?> </p>
+    <? echo $content;?>
 
 }
 
 new Style:Dashboard()[]{
     <h3>Записи&nbsp(<? echo $count;?>)</h3>
-    <div id="cmf_dashboardactions">
-        <a href="#" onClick="Controller.add('Posts')">Добавить</a>
-    </div>
-    <hr />
     
+    <a href="#" onClick="Controller.add('Posts')">Добавить</a>
+
     [:include DashboardList]
     <? echo $listbody;?>
 
@@ -24,9 +22,9 @@ new Style:DashboardList()[]{
         </thead>
     </table>
 }
-new Style:DashboardListItem()[asdsd]{
+new Style:DashboardListItem()[ onClick="DashboardSelector.toggleSelect(this);" ]{
     <table style="width:100%; margin:0px; ">
-        <tr class="listrow" onClick="Tool.toggleSelect(this);" >
+        <tr class="listrow" >
             <td style="width:50%; padding-left:10px;"><? echo $content;?></td>
             <td style="width:15%;text-align: center;"> <? echo $date;?></td>
         </tr>
@@ -36,10 +34,12 @@ new Style:DashboardListItem()[asdsd]{
 
 new Style:Form()[]{
     <h3>Добавление/Редактирование записи</h3>
-    <div class="cmf_datainput" data-plugin="TextPlugin" data-name="content"
-             data-label="Текст записи"  data-style="width:500px;height:300px;" data-value="<? echo $content;?>" />
+    <div class="cmf_datainput" data-plugin="WYSIWYGPlugin" data-name="content"
+             data-label="Текст записи"  data-style="width:800px;height:300px;" data-value='<? echo $content;?>'></div>
 
     <div class="cmf_datainput" data-plugin="DatePlugin" data-name="date"
-            data-label="Дата создания" data-value="<? echo $date;?>" data-style="" />
+            data-label="Дата создания" data-value="<? echo $date;?>" data-style=""></div>
+    <div class="cmf_datainput" data-plugin="TagsPlugin" data-name="tags"
+            data-label="Теги" data-value="<? echo $tags;?>" data-style=""></div>
     
 }

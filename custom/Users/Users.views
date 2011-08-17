@@ -7,10 +7,8 @@ new Style:CurrentUser()[ data-controls=disable ]{
 
 new Style:Dashboard()[]{
     <h3>Пользователи&nbsp(<? echo $count;?>)</h3>
-    <div id="cmf_dashboardactions">
-        <a href="#" onClick="Controller.add('Users')">Добавить</a>
-    </div>
-    <hr />
+    
+    <a href="#" onClick="Controller.add('Users')">Добавить</a>
 
     [:include DashboardList]
     <? echo $listbody;?>
@@ -26,10 +24,10 @@ new Style:DashboardList()[]{
         </thead>
     </table>
 }
-new Style:DashboardListItem(  )[ <? if($_COOKIE['user_id']==$id) echo 'data-deletable=false'; ?>  ]{
+new Style:DashboardListItem(  )[ onClick="DashboardSelector.toggleSelect(this);" <? if($_COOKIE['user_id']==$id) echo 'data-deletable=false'; ?>  ]{
 
     <table style="width:100%; margin:0px; ">
-        <tr class="listrow" onClick="Tool.toggleSelect(this);"  >
+        <tr class="listrow" >
             <td style="width:270px; text-align:center;"> <? echo $name;?></td>
             <td style="width:400px; text-align:center;"> <? echo $email;?></td>
             <td style="width:260px; text-align:center;"> <? echo $category;?></td>

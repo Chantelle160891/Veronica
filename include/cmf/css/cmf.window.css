@@ -45,7 +45,7 @@ div.modal .modalclose{
 	top: -11px;
 	width: 30px;
 	height: 30px;
-	background: url(../../engine/System/wysiwyg/i/close.png) no-repeat;
+	background: url(../../../template/images/cmf/close.png) no-repeat;
 	cursor: pointer;
 }
 div.modal .modalmessage{

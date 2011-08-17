@@ -8,7 +8,7 @@ class PostsAdministrator extends BaseAdministrator {
     public static $formView = "Form";
     
     public static $validationRules = array(
-        "content" => ".+",
+        "content" => ".[^\s]+",
         "date" => "\d\d\d\d-\d\d-\d\d"
     );
     
@@ -33,6 +33,7 @@ class PostsAdministrator extends BaseAdministrator {
         $items = ModelHandler::get("Posts");
         
         foreach ($items as $item) {
+            $item->bean['content'] = strip_tags($item->bean['content']);
             $length = strlen($item->bean['content']);
             if( $length > 203 ){
                 $s = substr($item->bean['content'], 0, 200);

@@ -11,6 +11,12 @@ Plugins.initPlugin = function( element ){
         case 'TextPlugin':
             TextPlugin.create(element);
             break;
+        case 'WYSIWYGPlugin':
+            WYSIWYGPlugin.create(element);
+            break;
+        case 'TagsPlugin':
+            TagsPlugin.create(element);
+            break;
         default:
             break;
     }
@@ -28,6 +34,12 @@ Plugins.getValue = function( element ){
             break;
         case 'TextPlugin':
             value = TextPlugin.value(element);
+            break;
+        case 'WYSIWYGPlugin':
+            value = WYSIWYGPlugin.value(element);
+            break;
+        case 'TagsPlugin':
+            value = TagsPlugin.value(element);
             break;
         default:
             break;

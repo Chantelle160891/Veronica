@@ -17,6 +17,6 @@ TextLinePlugin.create = function( div ){
 
 TextLinePlugin.value = function( div ){
     var name = $(div).data('name');
-
+   
     return $(div).find("#"+name)[0].value();
 }

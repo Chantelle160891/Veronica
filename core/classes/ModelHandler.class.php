@@ -66,7 +66,10 @@ class ModelHandler {
             foreach ($ids as $id) $beans[] = DB::load($table,$id);
         else $beans = DB::find ($table);
         $items = array();
-        foreach ($beans as $bean) $items[] = new Item( $model, $bean );
+        foreach ($beans as $bean){
+            
+            $items[] = new Item( $model, $bean );
+        }
         
         $items = self::sortItems($items);
         return $items;
@@ -119,7 +122,9 @@ class ModelHandler {
                 $my->$prop = $array['Default'];
             }
         }
-        foreach ($item->bean as $key => $value) $my->$key = $value;
+        foreach ($item->bean as $key => $value){
+            $my->$key = htmlspecialchars(str_replace("\'", "\"", $value));
+        }
         return DB::store($my);
     }
     

@@ -21,6 +21,6 @@ new Style:VeronicaMenuListItem()[]{
         <a href="#" onClick="<? echo $CLICKHANDLER;?>">
             <? echo $ALIAS;?>
         </a>
-        &nbsp<div class="cmf_adminaddbutton" src="../../../template/images/cmf/itemadd.png" onClick="<? echo $ADDCLICKHANDLER;?>" />
+        &nbsp<div class="cmf_adminaddbutton" onClick="<? echo $ADDCLICKHANDLER;?>" />
     </li>
 }

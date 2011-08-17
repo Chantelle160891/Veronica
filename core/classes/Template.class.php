@@ -27,6 +27,7 @@ class Template{
                 foreach ($files as $path) {
 
                     $ext = pathinfo($path);
+                    if( substr($ext['filename'], 0,1) == '_' ) continue;
                     $ext = $ext['extension'];
                     if($ext == "js"){
                         $js .= str_replace("{PATH}", $path, Storage::get("Template::jsInclude"));
